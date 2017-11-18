@@ -28,3 +28,5 @@ hs_err_pid*
 .secred
 
 
+/HelloCucumber/.nb-gradle/
+/HelloCucumber/build/

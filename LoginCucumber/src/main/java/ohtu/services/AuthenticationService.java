@@ -5,10 +5,16 @@ import java.util.ArrayList;
 import java.util.List;
 import ohtu.data_access.UserDao;
 
+import org.springframework.stereotype.Component;
+import org.springframework.beans.factory.annotation.Autowired;
+
+
+@Component
 public class AuthenticationService {
 
     private UserDao userDao;
 
+    @Autowired
     public AuthenticationService(UserDao userDao) {
         this.userDao = userDao;
     }
@@ -40,7 +46,29 @@ public class AuthenticationService {
 
     private boolean invalid(String username, String password) {
         // validity check of username and password
+        
+        
+        // käyttäjätunnuksen on oltava merkeistä a-z koostuva vähintään 3 merkin pituinen merkkijono, joka ei ole vielä käytössä
+        // käyttäjätunnus vähintään 3 merkkiä
+        if(username.length() < 3){
+            return true;
+        }
 
+        // käyttäjätunnut vain aakkosia a-z
+         if(!username.matches("[a-zA-Z]+")){
+            return true;
+        }
+         
+         // salasanan on oltava pituudeltaan vähintään 8 merkkiä ja sen tulee sisältää vähintään yksi numero tai erikoismerkki 
+         if(password.length() < 8){
+            return true;
+        }
+
+        // vähintään yksi numero tai erikoismerkki 
+         if(password.matches("[a-zA-Z]+")){
+            return true;
+        }
+        
         return false;
     }
 }
